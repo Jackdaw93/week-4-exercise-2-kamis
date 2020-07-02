@@ -9,23 +9,27 @@ function FormRegistrasi() {
   const [address, setAddress] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [gender, setGender] = useState("");
-  const [skill, setSkill] = useState("");
+  const [skills, setSkills] = useState([]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    alert(fullName);
-    alert(email);
-    alert(address);
-    alert(birthdate);
-    alert(gender);
-    alert(skill);
-  }
+  const handleSubmit = () => {
+    alert(`
+        Nama      : ${fullName}
+        Email     : ${email}
+        Password  : ${password}
+        Addess    : ${address}
+        Birthdate : ${birthdate}
+        Gender    : ${gender}
+        Skilss    : ${skills}
+       `);
+  };
 
   return (
     <div className="container">
-      <form onSubmit={handleSubmit}>
+      <form className="form-input" onSubmit={handleSubmit}>
+        <h3>Form Registrasi</h3>
         <div>
           <input
+            className="text"
             type="text"
             name="name"
             id="fullName"
@@ -35,6 +39,7 @@ function FormRegistrasi() {
         </div>
         <div>
           <input
+            className="text"
             type="email"
             name="email"
             id="email"
@@ -45,6 +50,7 @@ function FormRegistrasi() {
         </div>
         <div>
           <input
+            className="text"
             type="password"
             name="password"
             id="password"
@@ -55,6 +61,7 @@ function FormRegistrasi() {
         </div>
         <div>
           <textarea
+            className="text"
             name="address"
             id="address"
             placeholder="Address"
@@ -64,6 +71,7 @@ function FormRegistrasi() {
         </div>
         <div>
           <input
+            className="text"
             type="date"
             name="birthdate"
             id="birtdate"
@@ -71,54 +79,236 @@ function FormRegistrasi() {
             value={birthdate}
           />
         </div>
-        <div>
+
+        <div className="radio">
+          Gender:
           <input
             type="radio"
-            id="male"
-            onChange={(event) => setGender(event.target.value)}
             name="gender"
-            value="Male"
+            id="male"
+            value="male"
+            onChange={(event) => setGender(event.target.value)}
           />
           Male
           <input
             type="radio"
-            id="female"
-            onChange={(event) => setGender(event.target.value)}
             name="gender"
-            value="Female"
+            id="female"
+            value="female"
+            onChange={(event) => setGender(event.target.value)}
           />
           Female
         </div>
-        <div>
+        <div className="radio">
+          Skills:
           <input
             type="checkbox"
+            name="skills"
             id="coding"
-            onChange={(event) => setSkill(event.target.value)}
-            name="coding"
             value="Coding"
+            onChange={(event) => {
+              if (event.target.checked) {
+                setSkills([...skills, event.target.value]);
+              } else {
+                setSkills(
+                  skills.filter((skill) => skill !== event.target.value)
+                );
+              }
+            }}
           />
           Coding
           <input
             type="checkbox"
+            name="skills"
             id="design"
-            onChange={(event) => setSkill(event.target.value)}
-            name="design"
             value="Design"
+            onChange={(event) => {
+              if (event.target.checked) {
+                setSkills([...skills, event.target.value]);
+              } else {
+                setSkills(
+                  skills.filter((skill) => skill !== event.target.value)
+                );
+              }
+            }}
           />
-          Design
+          Desain
           <input
             type="checkbox"
+            name="skills"
             id="gaming"
-            onChange={(event) => setSkill(event.target.value)}
-            name="gaming"
-            value="Gaming"
+            value="gaming"
+            onChange={(event) => {
+              if (event.target.checked) {
+                setSkills([...skills, event.target.value]);
+              } else {
+                setSkills(
+                  skills.filter((skill) => skill !== event.target.value)
+                );
+              }
+            }}
           />
           Gaming
         </div>
-        <input type="submit" />
+        <input className="btn" type="submit" />
       </form>
     </div>
   );
 }
 
 export default FormRegistrasi;
+
+//Cara ked Dua
+
+// import React, { useState } from 'react';
+
+// function RegistrationForm() {
+//     const [data, setData] = useState({
+//         fullName: '',
+//         email: '',
+//         password: '',
+//         address: '',
+//         birthdate: '',
+//         gender: '',
+//         skills: [],
+//     });
+
+//     const handleChange = (event) => {
+//         let value = event.target.value;
+
+//         if (event.target.name === 'skills') {
+//             if (event.target.checked) {
+//                 setData({
+//                     ...data,
+//                     skills: [...data.skills, event.target.value],
+//                 });
+//             } else {
+//                 setData({
+//                     ...data,
+//                     skills: data.skills.filter((skill) => skill !== value),
+//                 });
+//             }
+//         } else {
+//             setData({
+//                 ...data,
+//                 [event.target.name]: value,
+//             });
+//         }
+//     };
+
+//     const handleSubmit = () => {
+//         alert(`Data diri Anda:
+//         - Nama : ${data.fullName},
+//         - Email: ${data.email},
+//         - Password: ${data.password},
+//         - Alamat: ${data.address},
+//         - Tanggal Lahir: ${data.birthdate},
+//         - Jenis Kelamin: ${data.gender},
+//         - Keahlian: ${data.skills}
+//       `);
+//     };
+
+//     console.log(data.skills);
+//     console.log(data.gender);
+
+//     return (
+//         <form onSubmit={handleSubmit}>
+//             <div>
+//                 <input
+//                     type='text'
+//                     name='fullName'
+//                     id='fullName'
+//                     placeholder='Nama Lengkap'
+//                     value={data.fullName}
+//                     onChange={handleChange}
+//                 />
+//             </div>
+//             <div>
+//                 <input
+//                     type='text'
+//                     name='email'
+//                     id='email'
+//                     placeholder='Email'
+//                     value={data.email}
+//                     onChange={handleChange}
+//                 />
+//             </div>
+//             <div>
+//                 <input
+//                     type='text'
+//                     name='password'
+//                     id='password'
+//                     placeholder='Kata Sandi'
+//                     value={data.password}
+//                     onChange={handleChange}
+//                 />
+//             </div>
+//             <div>
+//                 <textarea
+//                     name='address'
+//                     id='address'
+//                     placeholder='Alamat'
+//                     value={data.address}
+//                     onChange={handleChange}
+//                 />
+//             </div>
+//             <div>
+//                 <label htmlFor='birthdate'>Birthday:</label>
+//                 <input
+//                     type='date'
+//                     name='birthdate'
+//                     id='birthdate'
+//                     value={data.birthdate}
+//                     onChange={handleChange}
+//                 />
+//             </div>
+//             <div>
+//                 <input
+//                     type='radio'
+//                     name='gender'
+//                     id='male'
+//                     value='male'
+//                     onChange={handleChange}
+//                 />
+//                 <label htmlFor='male'>Pria</label>
+//                 <input
+//                     type='radio'
+//                     name='gender'
+//                     id='female'
+//                     value='female'
+//                     onChange={handleChange}
+//                 />
+//                 <label htmlFor='male'>Wanita</label>
+//             </div>
+//             <div>
+//                 <input
+//                     type='checkbox'
+//                     name='skills'
+//                     id='coding'
+//                     value='programming'
+//                     onChange={handleChange}
+//                 />
+//                 <label htmlFor='coding'>Ngoding</label>
+//                 <input
+//                     type='checkbox'
+//                     name='skills'
+//                     id='design'
+//                     value='design'
+//                     onChange={handleChange}
+//                 />
+//                 <label htmlFor='design'>Mendesain</label>
+//                 <input
+//                     type='checkbox'
+//                     name='skills'
+//                     id='gaming'
+//                     value='gaming'
+//                     onChange={handleChange}
+//                 />
+//                 <label htmlFor='coding'>Main game</label>
+//             </div>
+//             <input type='submit' value='Daftar' />
+//         </form>
+//     );
+// }
+
+// export default RegistrationForm;
